@@ -63,10 +63,36 @@
             width: 100%;
             transition: width 1s linear;
         }
+        .copy-btn {
+            position: absolute;
+            bottom: 5px;
+            right: 8px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            border-radius: 6px;
+            transition: color 0.2s, background-color 0.2s, transform 0.1s;
+        }
+        .copy-btn:hover {
+            color: #2f80ed;
+            background-color: #252525;
+        }
+        .copy-btn:active {
+            transform: scale(0.9);
+        }
     </style>
 </head>
 <body>
-    <h1>🔐 2FA Authenticator</h1>
+    <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 15px;">
+        <img src="icons/icon48.png" style="width: 24px; height: 24px; margin-right: 10px;">
+        <h1 style="margin: 0; font-size: 16px;">🔐 2FA Authenticator</h1>
+    </div>
+    <!-- <h1>🔐 2FA Authenticator</h1> -->
     <div id="auth-cards"></div>
     <script src="popup.js"></script>
 </body>

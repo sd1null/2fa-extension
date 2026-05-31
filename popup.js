@@ -66,6 +66,9 @@ async function updateCodes() {
                     <div class="account-name">${name}</div>
                     <div class="account-code" id="code-${index}">------</div>
                     <div class="timer-text" id="timer-${index}">0s</div>
+                    <button class="copy-btn" data-index="${index}" title="Скопировать код">
+                        <svg class="icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    </button>
                     <div class="progress-bar" id="bar-${index}"></div>
                 `;
                 container.appendChild(card);
@@ -94,6 +97,31 @@ async function updateCodes() {
         }
     });
 }
+
+document.getElementById('auth-cards').addEventListener('click', async (e) => {
+    // Ищем, был ли клик совершен по кнопке или внутри нее (по SVG)
+    const btn = e.target.closest('.copy-btn');
+    if (!btn) return;
+
+    const index = btn.getAttribute('data-index');
+    const codeEl = document.getElementById(`code-${index}`);
+    
+    if (codeEl && codeEl.textContent !== "------" && codeEl.textContent !== "ERROR") {
+        // Копируем в буфер обмена
+        await navigator.clipboard.writeText(codeEl.textContent);
+        
+        // Анимация успешного копирования (превращаем в зелёную галочку)
+        const originalHtml = btn.innerHTML;
+        btn.style.color = '#27ae60'; // Зелёный цвет
+        btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+        
+        // Через 1 секунду возвращаем старую иконку листочков
+        setTimeout(() => {
+            btn.innerHTML = originalHtml;
+            btn.style.color = '';
+        }, 1000);
+    }
+});
 
 updateCodes();
 setInterval(updateCodes, 1000);

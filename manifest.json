@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "You Private 2FA",
-  "version": "1.0",
+  "version": "1.1",
   "author": "Dmitry S", 
   "description": "Локальный автономный генератор 2FA кодов из Google Authenticator",
   "permissions": ["storage"],
